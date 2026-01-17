@@ -10,17 +10,21 @@ export default async function handler(req, res) {
       });
     }
 
-    const API_KEY = "ZEPH-0SL3V"; // backend key
-    const BACKEND_API = `https://zephrex-num.gauravyt566.workers.dev/?key=${API_KEY}&type=VEHICLE&term=${onlymynk}`;
+    const API_KEY = "ZEPH-0SL3V";
+    const url = `https://zephrex-num.gauravyt566.workers.dev/?key=${API_KEY}&type=VEHICLE&term=${onlymynk}`;
 
-    const response = await fetch(BACKEND_API);
+    const response = await fetch(url);
     const data = await response.json();
+
+    // ❌ REMOVE unwanted keys if present
+    delete data["BUY API"];
+    delete data["SUPPORT"];
+    delete data["buy_api"];
+    delete data["support"];
 
     return res.status(200).json({
       status: true,
       developer: "@mynk_mynk_mynk",
-      buy_api: "Contact @mynk_mynk_mynk",
-      support: "@mynk_mynk_mynk",
       result: data
     });
 
